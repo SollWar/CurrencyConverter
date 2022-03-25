@@ -48,11 +48,3 @@ data class Info(
     var Value: String = "",
     var Previous: String = ""
 )
-
-//"ID": "R01010",
-//      "NumCode": "036",
-//      "CharCode": "AUD",
-//      "Nominal": 1,
-//      "Name": "Австралийский доллар",
-//      "Value": 76.9174,
-//      "Previous": 77.504
