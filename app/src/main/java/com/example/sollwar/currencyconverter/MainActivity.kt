@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), CurrencyListFragment.Callbacks {
 
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.in_from_right, R.anim.out_to_left, R.anim.in_from_left, R.anim.out_to_right)
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()

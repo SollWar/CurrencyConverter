@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.example.sollwar.currencyconverter.model.Info
 class CurrencyListFragment : Fragment() {
     private lateinit var currencyConverterViewModel: CurrencyConverterViewModel
     private lateinit var currencyRecyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
 
     interface Callbacks { // Интерфейс обратного вызова. Для передачи вызовов из CrimeListFragment в MainActivity
         fun onCurrencySelected(CharCode: String, Value: String)
@@ -37,16 +39,19 @@ class CurrencyListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_currency_list, container, false)
         currencyRecyclerView = view.findViewById(R.id.currency_recycler_view)
+        progressBar = view.findViewById(R.id.progress_bar)
         currencyRecyclerView.layoutManager = LinearLayoutManager(context)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        currencyConverterViewModel.getValuteItemLiveData().observe(
+        progressBar.visibility = ProgressBar.VISIBLE
+        currencyConverterViewModel.valuteItemLiveData().observe(
             viewLifecycleOwner,
             Observer { valuteItem ->
                 currencyRecyclerView.adapter = ValuteAdapter(valuteItem)
+                progressBar.visibility = ProgressBar.INVISIBLE
             }
         )
     }

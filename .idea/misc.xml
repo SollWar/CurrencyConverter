@@ -4,8 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/fragment_currency_converter.xml" value="0.536" />
-        <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/fragment_currency_list.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/fragment_currency_converter.xml" value="0.264" />
+        <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/fragment_currency_list.xml" value="0.264" />
         <entry key="..\:/Users/Sollw/androidProject/CurrencyConverter/app/src/main/res/layout/item_currency_list.xml" value="0.536" />
       </map>
     </option>

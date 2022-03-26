@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.example.sollwar.currencyconverter.R
@@ -13,7 +16,7 @@ import com.example.sollwar.currencyconverter.R
 class CurrencyConverterFragment : Fragment() {
 
     private lateinit var currencyToTextView: TextView
-    private lateinit var currencyToEditText: EditText
+    private lateinit var currencyToEditText: TextView
     private lateinit var currencyFromEditText: EditText
     private var charCode: String? = ""
     private var valueCurrency: String? = ""
@@ -34,21 +37,20 @@ class CurrencyConverterFragment : Fragment() {
         currencyToEditText = view.findViewById(R.id.currency_to_edit_text)
         currencyFromEditText = view.findViewById(R.id.currency_from_edit_text)
         currencyToTextView.text = charCode
-        currencyToEditText.setText("0")
-        currencyFromEditText.setText("0")
+        currencyToEditText.text = ""
+        currencyFromEditText.setText("")
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        currencyFromEditText.doOnTextChanged { text, _, _, _ ->
-            try {
-                val calculate = text.toString().toFloat() / valueCurrency!!.toFloat()
-                currencyToEditText.setText(calculate.toString())
+        currencyFromEditText.doAfterTextChanged {
+            if (it.toString() != "") {
+                val calculate = it.toString().toFloat() / valueCurrency!!.toFloat()
+                currencyToEditText.text = calculate.toString()
                 currencyFromEditText.error = null
-            } catch (e: NumberFormatException) {
-                currencyFromEditText.error = "Неверный формат"
-                currencyToEditText.setText("")
+            } else {
+                currencyToEditText.text = ""
             }
         }
     }
