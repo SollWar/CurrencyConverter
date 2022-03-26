@@ -1,4 +1,4 @@
-package com.example.sollwar.currencyconverter.api
+package com.example.sollwar.currencyconverter.retrofit
 
 import com.example.sollwar.currencyconverter.model.ValuteResponse
 import retrofit2.Call

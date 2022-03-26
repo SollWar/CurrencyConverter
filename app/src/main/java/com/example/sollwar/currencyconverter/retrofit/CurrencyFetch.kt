@@ -1,10 +1,9 @@
-package com.example.sollwar.currencyconverter
+package com.example.sollwar.currencyconverter.retrofit
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sollwar.currencyconverter.api.CbApi
-import com.example.sollwar.currencyconverter.model.Info
+import com.example.sollwar.currencyconverter.model.ValuteInfo
 import com.example.sollwar.currencyconverter.model.ValuteResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,8 +24,8 @@ class CurrencyFetch {
         cbApi = retrofit.create(CbApi::class.java)
     }
 
-    fun fetchCurrency(): LiveData<List<Info>> {
-        val responseLiveData: MutableLiveData<List<Info>> = MutableLiveData()
+    fun fetchCurrency(): LiveData<List<ValuteInfo>> {
+        val responseLiveData: MutableLiveData<List<ValuteInfo>> = MutableLiveData()
         val cbRequest: Call<ValuteResponse> = cbApi.fetchCurrency()
         cbRequest.enqueue(object : Callback<ValuteResponse> {
             override fun onFailure(call: Call<ValuteResponse>, t: Throwable) {
@@ -39,7 +38,7 @@ class CurrencyFetch {
             ) {
                 Log.d(TAG, "Response received")
                 val valuteResponse: ValuteResponse? = response.body()
-                val valuteItem: MutableList<Info> = mutableListOf(
+                val valuteItem: MutableList<ValuteInfo> = mutableListOf(
                     valuteResponse?.Valute?.AUD!!,
                     valuteResponse.Valute.AZN,
                     valuteResponse.Valute.GBP,

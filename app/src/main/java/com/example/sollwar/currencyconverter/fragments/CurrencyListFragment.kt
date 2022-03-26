@@ -13,16 +13,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.sollwar.currencyconverter.CurrencyConverterViewModel
+import com.example.sollwar.currencyconverter.fragments.viewmodel.CurrencyConverterViewModel
 import com.example.sollwar.currencyconverter.R
-import com.example.sollwar.currencyconverter.model.Info
+import com.example.sollwar.currencyconverter.model.ValuteInfo
 
 class CurrencyListFragment : Fragment() {
     private lateinit var currencyConverterViewModel: CurrencyConverterViewModel
     private lateinit var currencyRecyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    interface Callbacks { // Интерфейс обратного вызова. Для передачи вызовов из CrimeListFragment в MainActivity
+    interface Callbacks {
         fun onCurrencySelected(CharCode: String, Value: String)
     }
     private var callbacks: Callbacks? = null
@@ -66,7 +66,7 @@ class CurrencyListFragment : Fragment() {
 
     private inner class ValuteHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        private lateinit var info: Info
+        private lateinit var valuteInfo: ValuteInfo
 
         private val charCodeTextView: TextView = itemView.findViewById(R.id.char_code)
         private val nameTextView: TextView = itemView.findViewById(R.id.name)
@@ -78,15 +78,15 @@ class CurrencyListFragment : Fragment() {
         }
 
         override fun onClick(p0: View?) {
-            callbacks?.onCurrencySelected(info.CharCode, info.Value)
+            callbacks?.onCurrencySelected(valuteInfo.CharCode, valuteInfo.Value)
         }
 
-        fun bind(info: Info) {
-            this.info = info
-            charCodeTextView.text = this.info.CharCode
-            nameTextView.text = this.info.Name
-            valueTextView.text = this.info.Value
-            val change = this.info.Value.trim().toFloat() - this.info.Previous.trim().toFloat()
+        fun bind(valuteInfo: ValuteInfo) {
+            this.valuteInfo = valuteInfo
+            charCodeTextView.text = this.valuteInfo.CharCode
+            nameTextView.text = this.valuteInfo.Name
+            valueTextView.text = this.valuteInfo.Value
+            val change = this.valuteInfo.Value.trim().toFloat() - this.valuteInfo.Previous.trim().toFloat()
             changeTextView.text = change.toString()
             if (change > 0)
                 changeTextView.setTextColor(ContextCompat.getColor(changeTextView.context, R.color.green))
@@ -95,7 +95,7 @@ class CurrencyListFragment : Fragment() {
         }
     }
 
-    private inner class ValuteAdapter(private val valuteItem: List<Info>) : RecyclerView.Adapter<ValuteHolder>() {
+    private inner class ValuteAdapter(private val valuteItem: List<ValuteInfo>) : RecyclerView.Adapter<ValuteHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValuteHolder {
             val view = layoutInflater.inflate(R.layout.item_currency_list, parent, false)
             return ValuteHolder(view)
