@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sollwar.currencyconverter.CurrencyConverterViewModel
 import com.example.sollwar.currencyconverter.R
 import com.example.sollwar.currencyconverter.model.Info
@@ -20,7 +20,7 @@ import com.example.sollwar.currencyconverter.model.Info
 class CurrencyListFragment : Fragment() {
     private lateinit var currencyConverterViewModel: CurrencyConverterViewModel
     private lateinit var currencyRecyclerView: RecyclerView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     interface Callbacks { // Интерфейс обратного вызова. Для передачи вызовов из CrimeListFragment в MainActivity
         fun onCurrencySelected(CharCode: String, Value: String)
@@ -39,21 +39,29 @@ class CurrencyListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_currency_list, container, false)
         currencyRecyclerView = view.findViewById(R.id.currency_recycler_view)
-        progressBar = view.findViewById(R.id.progress_bar)
+        swipeRefreshLayout = view.findViewById(R.id.refresh_layout)
         currencyRecyclerView.layoutManager = LinearLayoutManager(context)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressBar.visibility = ProgressBar.VISIBLE
+        swipeRefreshLayout.isRefreshing = true
         currencyConverterViewModel.valuteItemLiveData().observe(
             viewLifecycleOwner,
             Observer { valuteItem ->
                 currencyRecyclerView.adapter = ValuteAdapter(valuteItem)
-                progressBar.visibility = ProgressBar.INVISIBLE
+                swipeRefreshLayout.isRefreshing = false
             }
         )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        swipeRefreshLayout.setOnRefreshListener {
+            currencyConverterViewModel.refreshValuteItemLiveData()
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private inner class ValuteHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
