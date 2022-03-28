@@ -59,8 +59,13 @@ class CurrencyListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         swipeRefreshLayout.setOnRefreshListener {
-            currencyConverterViewModel.refreshValuteItemLiveData()
-            swipeRefreshLayout.isRefreshing = false
+            currencyConverterViewModel.refreshValuteItemLiveData().observe(
+                viewLifecycleOwner,
+                Observer { valuteItem ->
+                    currencyRecyclerView.adapter = ValuteAdapter(valuteItem)
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            )
         }
     }
 
@@ -95,16 +100,15 @@ class CurrencyListFragment : Fragment() {
         }
     }
 
-    private inner class ValuteAdapter(private val valuteItem: List<ValuteInfo>) : RecyclerView.Adapter<ValuteHolder>() {
+    private inner class ValuteAdapter(private var valuteItem: List<ValuteInfo>) : RecyclerView.Adapter<ValuteHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValuteHolder {
             val view = layoutInflater.inflate(R.layout.item_currency_list, parent, false)
             return ValuteHolder(view)
         }
 
         override fun onBindViewHolder(holder: ValuteHolder, position: Int) {
-            val valuteItem = valuteItem[position]
             holder.apply {
-                holder.bind(valuteItem)
+                holder.bind(valuteItem[position])
             }
         }
 

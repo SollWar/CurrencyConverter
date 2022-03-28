@@ -10,8 +10,9 @@ class CurrencyConverterViewModel : ViewModel() {
     fun valuteItemLiveData(): LiveData<List<ValuteInfo>> {
         return _valuteItemLiveData
     }
-    fun refreshValuteItemLiveData() {
+    fun refreshValuteItemLiveData(): LiveData<List<ValuteInfo>> {
         _valuteItemLiveData = CurrencyFetch().fetchCurrency()
+        return _valuteItemLiveData
     }
 
 }
