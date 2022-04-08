@@ -6,6 +6,6 @@ Retrofit - для получения и парсинга списка валют
 ViewModel - для хранения списка валют и его обновления <br>
 RecyclerView - для отображения списка <br>
 Gson + Converter-Gson - для работы с Json и его конвертации в объекты Kotlin <br>
-SwipeRefreshLayout - для обновления списка потягиванием вниз
+SwipeRefreshLayout - для обновления списка потягиванием вниз <br>
 <img src="Screenshot_20220408_013928.jpg" alt="Список валют" width="200"/>
 <img src="Screenshot_20220408_013920.jpg" alt="Конвертер" width="200"/>
