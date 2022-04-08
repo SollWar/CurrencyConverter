@@ -7,10 +7,5 @@ ViewModel - для хранения списка валют и его обнов
 RecyclerView - для отображения списка <br>
 Gson + Converter-Gson - для работы с Json и его конвертации в объекты Kotlin <br>
 SwipeRefreshLayout - для обновления списка потягиванием вниз
-
-# Список валют
-![alt text](https://github.com/SollWar/CurrencyConverter/blob/master/Screenshot_20220408_013928.jpg)
-# Конвертер
-![alt text](https://github.com/SollWar/CurrencyConverter/blob/master/Screenshot_20220408_013920.jpg)
-
-
+<img src="Screenshot_20220408_013928.jpg" alt="Список валют" width="200"/>
+<img src="Screenshot_20220408_013920.jpg" alt="Конвертер" width="200"/>
